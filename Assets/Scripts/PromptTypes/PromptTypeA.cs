@@ -11,7 +11,7 @@ namespace Prompts
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent<PlayerMovement>(out PlayerMovement player))
+            if (other.TryGetComponent<Player>(out Player player))
             {
                 Debug.Log(player.gameObject.name + " has entered the trigger");
                 _onPromptCollided.Invoke();
@@ -20,7 +20,7 @@ namespace Prompts
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.TryGetComponent<PlayerMovement>(out PlayerMovement player))
+            if (other.TryGetComponent<Player>(out Player player))
             {
                 Debug.Log(player.gameObject.name + " has left the trigger");
                 _onPromptExited.Invoke();
