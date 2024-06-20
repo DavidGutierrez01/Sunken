@@ -1,6 +1,6 @@
 namespace Interactables
 {
-    public interface IHoldable
+    public interface IPickupable
     {
         void Hold();
         void Drop();

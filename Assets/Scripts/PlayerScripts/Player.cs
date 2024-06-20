@@ -10,7 +10,6 @@ namespace PlayerScripts
         [field: Header("Player Setup")]
         [field: SerializeField] public CinemachineVirtualCamera PlayerCamera { get; private set; }
 
-        public PlayerInteract PlayerInteract { get; private set; }
         public static Player Instance;
 
         #region Private Variables
@@ -19,6 +18,7 @@ namespace PlayerScripts
 
         #region Components
         private PlayerMovement _playerMovement;
+        private PlayerInteract _playerInteract;
 
         #endregion
 
@@ -32,7 +32,7 @@ namespace PlayerScripts
 
 
             _playerMovement = GetComponent<PlayerMovement>();
-            PlayerInteract = GetComponent<PlayerInteract>();
+            _playerInteract = GetComponent<PlayerInteract>();
         }
         private void Start()
         {

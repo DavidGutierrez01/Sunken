@@ -47,7 +47,7 @@ namespace PlayerScripts
 
         private void HoldObject(GameObject go)
         {
-            if (!go.transform.gameObject.TryGetComponent(out IHoldable holdable)) return;
+            if (!go.transform.gameObject.TryGetComponent(out IPickupable pickupable)) return;
 
             Physics.IgnoreCollision(go.GetComponent<Collider>(), this.GetComponent<Collider>(), true);
             _isHoldingObject = true;
@@ -55,19 +55,19 @@ namespace PlayerScripts
             go.transform.position = _pickupPosition.transform.position;
             go.transform.parent = _pickupPosition.transform;
 
-            holdable.Hold();
+            pickupable.Hold();
         }
 
         private void DropObject(GameObject go)
         {
-            if (!go.transform.gameObject.TryGetComponent(out IHoldable holdable)) return;
+            if (!go.transform.gameObject.TryGetComponent(out IPickupable pickupable)) return;
 
             Physics.IgnoreCollision(go.GetComponent<Collider>(), this.GetComponent<Collider>(), false);
             _isHoldingObject = false;
             go.transform.parent = null;
             _currentlyInteractedObject = null;
 
-            holdable.Drop();
+            pickupable.Drop();
         }
     }
 }

@@ -1,11 +1,10 @@
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.Events;
-using PlayerScripts;
 
 namespace Interactables
 {
-    public class InspectableObject : MonoBehaviour, IHoldable
+    public class InspectableObject : MonoBehaviour, IPickupable
     {
         [SerializeField] private CinemachineVirtualCamera _virtualCam;
         [SerializeField] private float _rotateSpeed = 2f;
