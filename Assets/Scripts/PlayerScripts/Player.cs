@@ -4,10 +4,14 @@ using Experimental;
 
 namespace PlayerScripts
 {
-    [RequireComponent(typeof(PlayerMovement))]
+    [RequireComponent(typeof(PlayerMovement), typeof(PlayerInteract))]
     public class Player : MonoBehaviour
     {
+        [field: Header("Player Setup")]
         [field: SerializeField] public CinemachineVirtualCamera PlayerCamera { get; private set; }
+
+        public PlayerInteract PlayerInteract { get; private set; }
+        public static Player Instance;
 
         #region Private Variables
         private bool _playerCameraEnabled;
@@ -20,9 +24,16 @@ namespace PlayerScripts
 
         private void Awake()
         {
-            _playerMovement = GetComponent<PlayerMovement>();
-        }
 
+            if (Instance != null)
+                Destroy(gameObject);
+            else
+                Instance = this;
+
+
+            _playerMovement = GetComponent<PlayerMovement>();
+            PlayerInteract = GetComponent<PlayerInteract>();
+        }
         private void Start()
         {
             _playerCameraEnabled = true;

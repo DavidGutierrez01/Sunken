@@ -1,54 +1,68 @@
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.Events;
+using PlayerScripts;
 
 namespace Interactables
 {
-    public class InspectableObject : MonoBehaviour, IInteractable
+    public class InspectableObject : MonoBehaviour, IHoldable
     {
         [SerializeField] private CinemachineVirtualCamera _virtualCam;
         [SerializeField] private float _rotateSpeed = 2f;
         [SerializeField] private UnityEvent _onObjectInteracted;
 
-        private bool _objectIsActive;
-        private Camera _camera;
+        private bool _objectIsHeld;
 
         private Vector2 deltaRotation;
 
         private void Start()
         {
-            _camera = Camera.main;
-            _objectIsActive = false;
+            _objectIsHeld = false;
         }
 
         private void Update()
         {
-            if (_objectIsActive)
+            if (_objectIsHeld)
             {
                 InspectObject();
             }
         }
 
+        /*
         public void Interact()
         {
             _onObjectInteracted.Invoke();
-            _objectIsActive = !_objectIsActive;
+            _objectIsHeld = !_objectIsHeld;
 
-            Debug.Log(_objectIsActive);
+            Debug.Log(_objectIsHeld);
         }
+        */
 
         private void InspectObject()
         {
-            Debug.Log($"Inspecting {this.transform.name}");
-
             deltaRotation.x = Input.GetAxis("Mouse X");
             deltaRotation.y = Input.GetAxis("Mouse Y");
 
             if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
             {
-                transform.rotation = Quaternion.AngleAxis(deltaRotation.x * _rotateSpeed, _camera.transform.up) *
-                Quaternion.AngleAxis(deltaRotation.y * _rotateSpeed, _camera.transform.right) * transform.rotation;
+                transform.rotation = Quaternion.AngleAxis(deltaRotation.x * _rotateSpeed, Vector3.down) *
+                Quaternion.AngleAxis(deltaRotation.y * _rotateSpeed, Vector3.right) * transform.rotation;
+
+                Debug.Log($"{transform.name} is being inspected");
             }
+        }
+
+        public void Hold()
+        {
+            _objectIsHeld = true;
+            Debug.Log($"{transform.name} held");
+        }
+
+        public void Drop()
+        {
+            _objectIsHeld = false;
+            Debug.Log($"{transform.name} dropped");
         }
     }
 }
+
